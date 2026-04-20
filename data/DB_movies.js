@@ -1,7 +1,7 @@
-const sql = require('mssql2');
+const sql = require('mysql2');
 require('dotenv').config();
 
-const connection = mysql.createConnection({
+const connection = sql.createConnection({
   host: process.env.DB_HOST || 'localhost:3006',
   user: process.env.DB_USER || 'root1',
   password: process.env.DB_PASSWORD || 'secretpassword',
