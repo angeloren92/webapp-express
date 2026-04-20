@@ -1,6 +1,6 @@
 const connection = require('../data/DB_movies');
 
-const index = (req, res) => {
+const index = (req, res, next) => {
     const query = 'SELECT * FROM movies';
     connection.query(query, (err, results) => {
         if (err) {
@@ -13,7 +13,7 @@ const index = (req, res) => {
 }
 
 const show = (req, res) => {
-    const movieId = req.params.id;
+    const movieId = parseInt(req.params.id);
     const queryMovie = 'SELECT * FROM movies WHERE id = ?';
     connection.query(queryMovie, [movieId], (err, results) => {
         if (err) {
