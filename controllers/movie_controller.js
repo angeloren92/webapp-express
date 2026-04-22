@@ -40,6 +40,18 @@ const show = (req, res) => {
             }
             // Attach reviews and send the movie object
             results[0].reviews = reviews;
+        });
+
+        const queryAvgVote = 'SELECT round(avg(vote), 2) AS average_vote FROM reviews WHERE movie_id = ?';
+        connection.query(queryAvgVote, [movieId], (err, avgResult) => {
+            if (err) {
+                console.error('Error fetching average vote:', err);
+                res.status(500).json({ error: 'Internal Server Error' });
+                return;
+            }
+            console.log(avgResult);
+            // Attach average vote to the movie object
+            results[0].average_vote = avgResult[0].average_vote;
             res.json(results[0]);
         });
     });
