@@ -60,6 +60,12 @@ const show = (req, res) => {
 const addReview = (req, res) => {
     const movieId = parseInt(req.params.id);
     const { name, vote, text } = req.body;
+
+    if (!name || !vote || !text) {
+        res.status(400).json({ error: 'Missing required fields' });
+        return;
+    }
+
     const query = 'INSERT INTO reviews ( movie_id, name, vote, text) VALUES (?, ?, ?, ?)';
     connection.query(query, [movieId, name, text, vote], (err, results) => {
         if (err) {
