@@ -59,7 +59,6 @@ const show = (req, res) => {
 const addReview = (req, res) => {
     const movieId = parseInt(req.params.id);
     const { name, vote, text } = req.body;
-    console.log(req.body, movieId);
 
     if (!name || !vote || !text) {
         res.status(400).json({ error: 'Missing required fields' });
