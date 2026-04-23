@@ -31,7 +31,7 @@ const show = (req, res) => {
             return;
         }
         // Fetch reviews for the movie
-        const queryReviews = 'SELECT * FROM reviews WHERE movie_id = ?';
+        const queryReviews = 'SELECT * FROM reviews WHERE movie_id = ? ORDER BY id DESC';
         connection.query(queryReviews, [movieId], (err, reviews) => {
             if (err) {
                 console.error('Error fetching reviews:', err);
@@ -49,7 +49,6 @@ const show = (req, res) => {
                 res.status(500).json({ error: 'Internal Server Error' });
                 return;
             }
-            console.log(avgResult);
             // Attach average vote to the movie object
             results[0].average_vote = avgResult[0].average_vote;
             res.json(results[0]);
