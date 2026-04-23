@@ -57,4 +57,18 @@ const show = (req, res) => {
     });
 }
 
-module.exports = { index, show };
+const addReview = (req, res) => {
+    const movieId = parseInt(req.params.id);
+    const { name, vote, text } = req.body;
+    const query = 'INSERT INTO reviews ( movie_id, name, vote, text) VALUES (?, ?, ?, ?)';
+    connection.query(query, [movieId, name, text, vote], (err, results) => {
+        if (err) {
+            console.error('Error adding review:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+        res.json({ message: 'Review added successfully' });
+    });
+}
+
+module.exports = { index, show, addReview };

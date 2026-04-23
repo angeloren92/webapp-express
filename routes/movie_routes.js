@@ -9,4 +9,6 @@ router.get('/index', movie_controller.index);
 // GET /api/movies/:id -> show single movie with reviews
 router.get('/:id', movie_controller.show);
 
+router.post('/:id/reviews', movie_controller.addReview);
+
 module.exports = router;
