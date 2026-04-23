@@ -60,6 +60,7 @@ const show = (req, res) => {
 const addReview = (req, res) => {
     const movieId = parseInt(req.params.id);
     const { name, vote, text } = req.body;
+    console.log(req.body, movieId);
 
     if (!name || !vote || !text) {
         res.status(400).json({ error: 'Missing required fields' });
@@ -67,7 +68,7 @@ const addReview = (req, res) => {
     }
 
     const query = 'INSERT INTO reviews ( movie_id, name, vote, text) VALUES (?, ?, ?, ?)';
-    connection.query(query, [movieId, name, text, vote], (err, results) => {
+    connection.query(query, [movieId, name, vote, text], (err, results) => {
         if (err) {
             console.error('Error adding review:', err);
             res.status(500).json({ error: 'Internal Server Error' });
